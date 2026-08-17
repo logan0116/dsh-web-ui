@@ -1,0 +1,893 @@
+/* cyberpunk (赛博霓虹) skin — the night-city theme for the dsh web GUI:
+   neon cyan (#00e5ff) / magenta (#ff2d78) / electric purple (#9d4edd) /
+   neon yellow (#ffd600) palette over deep ink, with the user's night-city
+   panorama behind translucent panes.
+   Everything is scoped under body[data-dsh-cyberpunk], which the plugin's
+   apply() sets (and retracts on dispose), so the skin stays fully
+   hot-pluggable. The panorama backdrop itself is applied by apply() as an
+   inline background-image (WebP data URL, with a readability scrim chosen
+   by the current theme); this stylesheet carries the palette remap, the
+   translucent surfaces, and the ambient frosting. The light variant is the
+   day-neon take (pale cyan sky-grid), the dark variant
+   (`body[data-dsh-cyberpunk][data-ds-dark-theme]`) is the classic night
+   city: deep ink surfaces over a glowing grid, so the base theme system
+   keeps working. */
+
+/* --- Base: fonts stay default; the app rides on the panorama ------------ */
+
+body[data-dsh-cyberpunk] {
+  color: #1a6d88;
+  background-color: #f4fbff;
+}
+
+body[data-dsh-cyberpunk][data-ds-dark-theme] {
+  color: #c8dae8;
+  background-color: #04060d;
+}
+
+/* The app frame itself is transparent — the panes below carry the frosted
+   glass over the panorama. */
+body[data-dsh-cyberpunk] [id='root'] {
+  background: transparent;
+}
+
+/* --- Static palette: light -------------------------------------------------
+   Neon cyan replaces the deepseek/blue families; cool ink-grays carry the
+   neutrals; neon yellow comes from the amber family; the sea-green/red keep
+   semantic safety (neon-tinted). */
+
+body[data-dsh-cyberpunk] {
+  --dsw-static-amber-100: #fff7cf;
+  --dsw-static-amber-400: #ffe94d;
+  --dsw-static-amber-500: #ffd600;
+  --dsw-static-amber-600: #e6b800;
+  --dsw-static-amber-900: #6b5a00;
+  --dsw-static-blue-100: #d9f9ff;
+  --dsw-static-blue-300: #8aebff;
+  --dsw-static-blue-400: #5fe3ff;
+  --dsw-static-blue-450: #33dcff;
+  --dsw-static-blue-500: #00cfff;
+  --dsw-static-blue-50: #f0fdff;
+  --dsw-static-blue-50p: #e0faff;
+  --dsw-static-blue-600: #00a8d6;
+  --dsw-static-blue-75: #e8fbff;
+  --dsw-static-blue-800: #0a6485;
+  --dsw-static-blue-950: #062838;
+  --dsw-static-deepseek-100: #d9f9ff;
+  --dsw-static-deepseek-200: #c4f5ff;
+  --dsw-static-deepseek-300: #8aebff;
+  --dsw-static-deepseek-400: #5fe3ff;
+  --dsw-static-deepseek-450: #33dcff;
+  --dsw-static-deepseek-500: #00cfff;
+  --dsw-static-deepseek-50: #f0fdff;
+  --dsw-static-deepseek-600: #00a8d6;
+  --dsw-static-deepseek-700-delete: #0a6485;
+  --dsw-static-deepseek-800: #0a6485;
+  --dsw-static-deepseek-900: #083c52;
+  --dsw-static-green-100: #d5fbe9;
+  --dsw-static-green-400: #33f0a8;
+  --dsw-static-green-500: #00d98a;
+  --dsw-static-green-900: #0a4a33;
+  --dsw-static-neutral-00: #ffffff;
+  --dsw-static-neutral-1000: #0a1218;
+  --dsw-static-neutral-100: #eaf2f6;
+  --dsw-static-neutral-150: #e2edf2;
+  --dsw-static-neutral-200: #d8e4ea;
+  --dsw-static-neutral-250: #cfdde5;
+  --dsw-static-neutral-300: #b8cbd6;
+  --dsw-static-neutral-400: #92aab8;
+  --dsw-static-neutral-500: #6f8a9a;
+  --dsw-static-neutral-50: #f6fafc;
+  --dsw-static-neutral-550: #5a7484;
+  --dsw-static-neutral-600: #46606f;
+  --dsw-static-neutral-700: #38505e;
+  --dsw-static-neutral-800: #2b3f4c;
+  --dsw-static-neutral-850: #22333f;
+  --dsw-static-neutral-900: #182630;
+  --dsw-static-neutral-bluish-00: #ffffff;
+  --dsw-static-neutral-bluish-1000: #0a1218;
+  --dsw-static-neutral-bluish-100: #e2f7fd;
+  --dsw-static-neutral-bluish-150: #d8f2fa;
+  --dsw-static-neutral-bluish-200: #cdecf7;
+  --dsw-static-neutral-bluish-250: #c2e6f3;
+  --dsw-static-neutral-bluish-300: #a8dcf0;
+  --dsw-static-neutral-bluish-400: #7cc6e2;
+  --dsw-static-neutral-bluish-500: #54aecf;
+  --dsw-static-neutral-bluish-50: #f0fbff;
+  --dsw-static-neutral-bluish-600: #2f8fb3;
+  --dsw-static-neutral-bluish-60: #e8f9ff;
+  --dsw-static-neutral-bluish-700: #1f7294;
+  --dsw-static-neutral-bluish-750: #16617f;
+  --dsw-static-neutral-bluish-75: #ecfaff;
+  --dsw-static-neutral-bluish-800: #0a4e6a;
+  --dsw-static-neutral-bluish-850: #063f57;
+  --dsw-static-neutral-bluish-875: #04354a;
+  --dsw-static-neutral-bluish-900: #02293a;
+  --dsw-static-neutral-bluish-950: #011e2b;
+  --dsw-static-red-100: #ffd9e2;
+  --dsw-static-red-400: #ff5c82;
+  --dsw-static-red-500: #ff2d6f;
+  --dsw-static-red-50: #fff0f4;
+  --dsw-static-red-600: #e0004f;
+  --dsw-static-red-900: #7a0a26;
+}
+
+/* --- Static palette: dark (night city) ----------------------------------- */
+
+body[data-dsh-cyberpunk][data-ds-dark-theme] {
+  --dsw-static-amber-100: #4a3f00;
+  --dsw-static-amber-400: #ffe94d;
+  --dsw-static-amber-500: #ffd600;
+  --dsw-static-amber-600: #e6b800;
+  --dsw-static-amber-900: #6b5a00;
+  --dsw-static-blue-100: #062838;
+  --dsw-static-blue-300: #0a4a5e;
+  --dsw-static-blue-400: #0d5a72;
+  --dsw-static-blue-450: #106a86;
+  --dsw-static-blue-500: #13789a;
+  --dsw-static-blue-50: #041c28;
+  --dsw-static-blue-50p: #05202e;
+  --dsw-static-blue-600: #2fa3c8;
+  --dsw-static-blue-75: #052434;
+  --dsw-static-blue-800: #7adff5;
+  --dsw-static-blue-950: #bdf3ff;
+  --dsw-static-deepseek-100: #062838;
+  --dsw-static-deepseek-200: #08334a;
+  --dsw-static-deepseek-300: #0a4a5e;
+  --dsw-static-deepseek-400: #0d5a72;
+  --dsw-static-deepseek-450: #106a86;
+  --dsw-static-deepseek-500: #13789a;
+  --dsw-static-deepseek-50: #041c28;
+  --dsw-static-deepseek-600: #2fa3c8;
+  --dsw-static-deepseek-700-delete: #4fc0e0;
+  --dsw-static-deepseek-800: #7adff5;
+  --dsw-static-deepseek-900: #9ceaff;
+  --dsw-static-green-100: #0a3a28;
+  --dsw-static-green-400: #33f0a8;
+  --dsw-static-green-500: #00d98a;
+  --dsw-static-green-900: #0a4a33;
+  --dsw-static-neutral-00: #030509;
+  --dsw-static-neutral-1000: #d8eefb;
+  --dsw-static-neutral-100: #09101c;
+  --dsw-static-neutral-150: #0d1424;
+  --dsw-static-neutral-200: #10182c;
+  --dsw-static-neutral-250: #141d34;
+  --dsw-static-neutral-300: #192440;
+  --dsw-static-neutral-400: #21304c;
+  --dsw-static-neutral-500: #293c5c;
+  --dsw-static-neutral-50: #060a12;
+  --dsw-static-neutral-550: #324a6e;
+  --dsw-static-neutral-600: #3d5882;
+  --dsw-static-neutral-700: #4e6894;
+  --dsw-static-neutral-800: #6278a6;
+  --dsw-static-neutral-850: #6f86b4;
+  --dsw-static-neutral-900: #8096c2;
+  --dsw-static-neutral-bluish-00: #030509;
+  --dsw-static-neutral-bluish-1000: #d8eefb;
+  --dsw-static-neutral-bluish-100: #081420;
+  --dsw-static-neutral-bluish-150: #0c1a26;
+  --dsw-static-neutral-bluish-200: #102230;
+  --dsw-static-neutral-bluish-250: #14283a;
+  --dsw-static-neutral-bluish-300: #1a3348;
+  --dsw-static-neutral-bluish-400: #223d55;
+  --dsw-static-neutral-bluish-500: #2c4c68;
+  --dsw-static-neutral-bluish-50: #050d15;
+  --dsw-static-neutral-bluish-600: #385a7a;
+  --dsw-static-neutral-bluish-60: #071120;
+  --dsw-static-neutral-bluish-700: #476d90;
+  --dsw-static-neutral-bluish-750: #51799c;
+  --dsw-static-neutral-bluish-75: #071523;
+  --dsw-static-neutral-bluish-800: #6288a8;
+  --dsw-static-neutral-bluish-850: #6e94b2;
+  --dsw-static-neutral-bluish-875: #789eba;
+  --dsw-static-neutral-bluish-900: #88acc4;
+  --dsw-static-neutral-bluish-950: #9cc4da;
+  --dsw-static-red-100: #4a1020;
+  --dsw-static-red-400: #ff5c82;
+  --dsw-static-red-500: #ff3860;
+  --dsw-static-red-50: #2e0a14;
+  --dsw-static-red-600: #e02050;
+  --dsw-static-red-900: #7a0a26;
+}
+
+/* --- Alias palette: light ---------------------------------------------------
+   The semantic surface the components actually read; every hue derives
+   from the cyan/magenta/yellow families above. The big surfaces (bg-base,
+   the layer stack, sidebar fill) are translucent on purpose: the app rides
+   on the panorama, so panels let it glow through instead of covering it.
+   Deliberately NO backdrop-filter anywhere — an ancestor with
+   backdrop-filter becomes the containing block for fixed-position
+   descendants, which would trap overlays like the settings panel inside
+   the sidebar column. */
+
+body[data-dsh-cyberpunk] {
+  --dsw-alias-bg-base: rgba(250, 253, 255, 0.5);
+  --dsw-alias-bg-layer-1: rgba(236, 250, 255, 0.55);
+  --dsw-alias-bg-layer-2: rgba(222, 244, 255, 0.6);
+  --dsw-alias-bg-layer-3: rgba(210, 238, 255, 0.65);
+  --dsw-alias-bg-mask-1: rgba(6, 40, 56, 0.4);
+  --dsw-alias-bg-mask-2: rgba(6, 40, 56, 0.2);
+  --dsw-alias-bg-mask-3: rgba(6, 40, 56, 0.5);
+  --dsw-alias-bg-mask-photo: rgba(4, 10, 20, 0.88);
+  --dsw-alias-bg-module-platform: rgba(228, 247, 255, 0.7);
+  --dsw-alias-bg-multi-select: rgba(196, 240, 255, 0.85);
+  --dsw-alias-bg-overlay: rgba(244, 252, 255, 0.94);
+  --dsw-alias-bg-skeleton: rgba(6, 40, 56, 0.06);
+  --dsw-alias-border-inverted2: rgba(255, 255, 255, 0.6);
+  --dsw-alias-border-inverted: rgba(255, 255, 255, 0.4);
+  --dsw-alias-border-l1: rgba(0, 150, 210, 0.16);
+  --dsw-alias-border-l2-darkmode-thin: rgba(0, 150, 210, 0.2);
+  --dsw-alias-border-l2: rgba(0, 150, 210, 0.22);
+  --dsw-alias-border-l3: rgba(0, 150, 210, 0.3);
+  --dsw-alias-border-l4: rgba(0, 150, 210, 0.4);
+  --dsw-alias-brand-primary-invert: #ffffff;
+  --dsw-alias-brand-primary-new-colorprimary-new-color: #00b8d4;
+  --dsw-alias-brand-primary: #00b8d4;
+  --dsw-alias-brand-text: #06323f;
+  --dsw-alias-button-contrast-fill: #0a5466;
+  --dsw-alias-button-elevated-fill: #ffffff;
+  --dsw-alias-button-floating-fill: #ffffff;
+  --dsw-alias-button-floating-hover: #e8f9ff;
+  --dsw-alias-button-ghost-active-border: #8aebff;
+  --dsw-alias-button-ghost-active-fill: #e0faff;
+  --dsw-alias-button-ghost-active-hover: #c9f5ff;
+  --dsw-alias-button-info-fill: #00a8d6;
+  --dsw-alias-button-info-hover: #00b8e6;
+  --dsw-alias-button-primary-dimmed: #e0faff;
+  --dsw-alias-button-primary-fill: #0098b8;
+  --dsw-alias-button-primary-hover: #12a8c8;
+  --dsw-alias-button-tool-bar-fill-invisible: rgba(0, 200, 255, 0.3);
+  --dsw-alias-button-tool-bar-fill: rgba(0, 200, 255, 0.45);
+  --dsw-alias-button-tool-bar-hover: rgba(0, 200, 255, 0.55);
+  --dsw-alias-interactive-bg-active: rgba(0, 200, 255, 0.16);
+  --dsw-alias-interactive-bg-hover-accent: rgba(255, 45, 120, 0.1);
+  --dsw-alias-interactive-bg-hover-danger: rgba(224, 0, 79, 0.07);
+  --dsw-alias-interactive-bg-hover-solid: #e8f9ff;
+  --dsw-alias-interactive-bg-hover: rgba(0, 200, 255, 0.09);
+  --dsw-alias-label-caption: #8ba1b0;
+  --dsw-alias-label-dimmed: #92aab8;
+  --dsw-alias-label-primary-dimmed: #20839a;
+  --dsw-alias-label-primary-foreground: #ffffff;
+  --dsw-alias-label-primary-inverted: #ffffff;
+  --dsw-alias-label-primary: #1a6d88;
+  --dsw-alias-label-secondary: #20839a;
+  --dsw-alias-label-tertiary: #2497b2;
+  --dsw-alias-markdown-citation: rgba(228, 247, 255, 0.65);
+  --dsw-alias-markdown-code-block-banner: rgba(240, 252, 255, 0.65);
+  --dsw-alias-markdown-code-block: rgba(240, 252, 255, 0.65);
+  --dsw-alias-markdown-code-segment-selected: rgba(255, 255, 255, 0.85);
+  --dsw-alias-markdown-code-segment-unselected: rgba(240, 252, 255, 0.65);
+  --dsw-alias-markdown-inline-code: rgba(224, 247, 255, 0.65);
+  --dsw-alias-markdown-placeholder: rgba(240, 252, 255, 0.65);
+  --dsw-alias-markdown-tag: rgba(224, 247, 255, 0.65);
+  --dsw-alias-scrollbar-bg-l1: #cdecf7;
+  --dsw-alias-scrollbar-bg-l2: #cdecf7;
+  --dsw-alias-scrollbar-hover-l1: #54aecf;
+  --dsw-alias-scrollbar-hover-l2: #54aecf;
+  --dsw-alias-state-business-primary: #00b8d4;
+  --dsw-alias-state-business-tertiary: #e0faff;
+  --dsw-alias-state-error-primary: #e01a4f;
+  --dsw-alias-state-error-secondary: #ff5c82;
+  --dsw-alias-state-success-primary: #00a86b;
+  --dsw-alias-state-success-secondary: #33d98f;
+  --dsw-alias-state-success-tertiary: #d5fbe9;
+  --dsw-alias-state-warn-label: #a38200;
+  --dsw-alias-state-warn-primary: #e6b800;
+  --dsw-alias-state-warn-secondary: #ffd600;
+  --dsw-alias-state-warn-tertiary: #fff7cf;
+  --dsw-alias-toast-bg: #0a5466;
+  --dsw-alias-tooltip-bg: #fff7cf;
+  --dsw-alias-tooltip-fg: #062838;
+  --dsw-specific-bubble-highlight: #c9f5ff;
+  --dsw-specific-bubble: #e0faff;
+  --dsw-specific-input-major: rgba(255, 255, 255, 0.65);
+  --dsw-specific-login-input: rgba(255, 255, 255, 0.65);
+  --dsw-specific-menu: rgba(244, 252, 255, 0.96);
+  --dsw-specific-selector: rgba(228, 249, 255, 0.9);
+  --dsw-specific-sidebar-fill: rgba(238, 249, 255, 0.5);
+  --dsw-specific-sidebar-nav-item-active-accent: #7cc6e2;
+  --dsw-specific-sidebar-nav-item-active: #e0faff;
+  --dsw-specific-sidebar-nav-item-hover: #e8f9ff;
+  --dsw-specific-tip: #f6fcff;
+}
+
+/* --- Alias palette: dark (night city) -------------------------------------- */
+
+body[data-dsh-cyberpunk][data-ds-dark-theme] {
+  --dsw-alias-bg-base: rgba(3, 5, 11, 0.5);
+  --dsw-alias-bg-layer-1: rgba(7, 11, 22, 0.58);
+  --dsw-alias-bg-layer-2: rgba(9, 14, 28, 0.62);
+  --dsw-alias-bg-layer-3: rgba(11, 17, 34, 0.66);
+  --dsw-alias-bg-mask-1: rgba(0, 0, 0, 0.55);
+  --dsw-alias-bg-mask-2: rgba(0, 0, 0, 0.3);
+  --dsw-alias-bg-mask-3: rgba(0, 0, 0, 0.6);
+  --dsw-alias-bg-mask-photo: rgba(2, 3, 8, 0.85);
+  --dsw-alias-bg-module-platform: rgba(9, 14, 28, 0.62);
+  --dsw-alias-bg-multi-select: rgba(13, 22, 42, 0.7);
+  --dsw-alias-bg-overlay: rgba(6, 10, 20, 0.88);
+  --dsw-alias-bg-skeleton: rgba(255, 255, 255, 0.06);
+  --dsw-alias-border-inverted2: rgba(255, 255, 255, 0.6);
+  --dsw-alias-border-inverted: rgba(255, 255, 255, 0.4);
+  --dsw-alias-border-l1: rgba(0, 229, 255, 0.14);
+  --dsw-alias-border-l2-darkmode-thin: rgba(0, 229, 255, 0.18);
+  --dsw-alias-border-l2: rgba(0, 229, 255, 0.2);
+  --dsw-alias-border-l3: rgba(0, 229, 255, 0.28);
+  --dsw-alias-border-l4: rgba(0, 229, 255, 0.36);
+  --dsw-alias-brand-primary-invert: #05070f;
+  --dsw-alias-brand-primary-new-colorprimary-new-color: #00e5ff;
+  --dsw-alias-brand-primary: #00e5ff;
+  --dsw-alias-brand-text: #bdf3ff;
+  --dsw-alias-button-contrast-fill: #0a4a5e;
+  --dsw-alias-button-elevated-fill: #101a28;
+  --dsw-alias-button-floating-fill: #0c1420;
+  --dsw-alias-button-floating-hover: #142030;
+  --dsw-alias-button-ghost-active-border: #2fa3c8;
+  --dsw-alias-button-ghost-active-fill: #142030;
+  --dsw-alias-button-ghost-active-hover: #182638;
+  --dsw-alias-button-info-fill: #0d5a72;
+  --dsw-alias-button-info-hover: #13789a;
+  --dsw-alias-button-primary-dimmed: #142030;
+  --dsw-alias-button-primary-fill: #0ba3c0;
+  --dsw-alias-button-primary-hover: #2bb7d4;
+  --dsw-alias-button-tool-bar-fill-invisible: rgba(0, 229, 255, 0.28);
+  --dsw-alias-button-tool-bar-fill: rgba(0, 229, 255, 0.42);
+  --dsw-alias-button-tool-bar-hover: rgba(0, 229, 255, 0.52);
+  --dsw-alias-interactive-bg-active: rgba(0, 229, 255, 0.16);
+  --dsw-alias-interactive-bg-hover-accent: rgba(255, 45, 120, 0.16);
+  --dsw-alias-interactive-bg-hover-danger: rgba(255, 56, 96, 0.12);
+  --dsw-alias-interactive-bg-hover-solid: #142030;
+  --dsw-alias-interactive-bg-hover: rgba(0, 229, 255, 0.08);
+  --dsw-alias-label-caption: #4a6a80;
+  --dsw-alias-label-dimmed: #3a5678;
+  --dsw-alias-label-primary-dimmed: #9cc2da;
+  --dsw-alias-label-primary-foreground: #e0eef6;
+  --dsw-alias-label-primary-inverted: #05070f;
+  --dsw-alias-label-primary: #c8dae8;
+  --dsw-alias-label-secondary: #a8d8e8;
+  --dsw-alias-label-tertiary: #66a8c4;
+  --dsw-alias-markdown-citation: rgba(13, 20, 38, 0.7);
+  --dsw-alias-markdown-code-block-banner: rgba(7, 11, 24, 0.72);
+  --dsw-alias-markdown-code-block: rgba(7, 11, 24, 0.72);
+  --dsw-alias-markdown-code-segment-selected: rgba(16, 25, 46, 0.8);
+  --dsw-alias-markdown-code-segment-unselected: rgba(10, 15, 30, 0.65);
+  --dsw-alias-markdown-inline-code: rgba(9, 15, 28, 0.68);
+  --dsw-alias-markdown-placeholder: rgba(10, 15, 30, 0.65);
+  --dsw-alias-markdown-tag: rgba(9, 15, 28, 0.68);
+  --dsw-alias-scrollbar-bg-l1: #141d34;
+  --dsw-alias-scrollbar-bg-l2: #141d34;
+  --dsw-alias-scrollbar-hover-l1: #2fa3c8;
+  --dsw-alias-scrollbar-hover-l2: #2fa3c8;
+  --dsw-alias-state-business-primary: #00e5ff;
+  --dsw-alias-state-business-tertiary: #142030;
+  --dsw-alias-state-error-primary: #ff3860;
+  --dsw-alias-state-error-secondary: #ff5c82;
+  --dsw-alias-state-success-primary: #00ff9c;
+  --dsw-alias-state-success-secondary: #33f0a8;
+  --dsw-alias-state-success-tertiary: #0a3a28;
+  --dsw-alias-state-warn-label: #ffd600;
+  --dsw-alias-state-warn-primary: #ffd600;
+  --dsw-alias-state-warn-secondary: #ffe94d;
+  --dsw-alias-state-warn-tertiary: #4a3f00;
+  --dsw-alias-toast-bg: #142030;
+  --dsw-alias-tooltip-bg: #fff7cf;
+  --dsw-alias-tooltip-fg: #062838;
+  --dsw-specific-bubble-highlight: rgba(19, 34, 54, 0.75);
+  --dsw-specific-bubble: rgba(13, 21, 36, 0.7);
+  --dsw-specific-input-major: rgba(6, 10, 20, 0.6);
+  --dsw-specific-login-input: rgba(6, 10, 20, 0.6);
+  --dsw-specific-menu: rgba(6, 10, 20, 0.9);
+  --dsw-specific-selector: rgba(8, 13, 24, 0.75);
+  --dsw-specific-sidebar-fill: rgba(4, 6, 12, 0.65);
+  --dsw-specific-sidebar-nav-item-active-accent: rgba(13, 21, 36, 0.6);
+  --dsw-specific-sidebar-nav-item-active: rgba(13, 21, 36, 0.6);
+  --dsw-specific-sidebar-nav-item-hover: rgba(11, 18, 32, 0.55);
+  --dsw-specific-tip: rgba(9, 16, 28, 0.6);
+}
+
+/* --- Ambient surfaces -------------------------------------------------------
+   No pane-level rules here: the app rides on the panorama through the
+   translucent tokens above (bg-base, the layer stack, sidebar fill, menus,
+   inputs). backdrop-filter is deliberately unused — it would trap fixed
+   overlays (e.g. the settings panel) inside their ancestor's box. */
+
+body[data-dsh-cyberpunk] [id='root'] {
+  background: transparent;
+}
+
+/* --- Chrome details ---------------------------------------------------------
+   Scrollbars, selection, links, and focus rings in the neon inks. */
+
+body[data-dsh-cyberpunk] {
+  --dsh-scrollbar-thumb: var(--dsw-alias-scrollbar-bg-l2);
+  --dsh-scrollbar-thumb-hover: var(--dsw-alias-scrollbar-hover-l2);
+}
+
+body[data-dsh-cyberpunk]::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+body[data-dsh-cyberpunk]::-webkit-scrollbar-track {
+  background: #eaf6fb;
+}
+
+body[data-dsh-cyberpunk]::-webkit-scrollbar-thumb {
+  background: #9fd8ee;
+  border: 2px solid #eaf6fb;
+  border-radius: 5px;
+}
+
+body[data-dsh-cyberpunk]::-webkit-scrollbar-thumb:hover {
+  background: #4fc0e0;
+}
+
+body[data-dsh-cyberpunk]::-webkit-scrollbar-corner {
+  background: #eaf6fb;
+}
+
+body[data-dsh-cyberpunk][data-ds-dark-theme]::-webkit-scrollbar-track,
+body[data-dsh-cyberpunk][data-ds-dark-theme]::-webkit-scrollbar-corner {
+  background: #080d16;
+}
+
+body[data-dsh-cyberpunk][data-ds-dark-theme]::-webkit-scrollbar-thumb {
+  background: #182a3e;
+  border-color: #080d16;
+}
+
+body[data-dsh-cyberpunk][data-ds-dark-theme]::-webkit-scrollbar-thumb:hover {
+  background: #2fa3c8;
+}
+
+body[data-dsh-cyberpunk]::selection {
+  background: #00b8d4;
+  color: #ffffff;
+}
+
+body[data-dsh-cyberpunk][data-ds-dark-theme]::selection {
+  background: #00e5ff;
+  color: #05070f;
+}
+
+body[data-dsh-cyberpunk] a {
+  color: #0090b8;
+}
+
+body[data-dsh-cyberpunk] a:visited {
+  color: #9d4edd;
+}
+
+body[data-dsh-cyberpunk][data-ds-dark-theme] a {
+  color: #00d9ff;
+}
+
+body[data-dsh-cyberpunk][data-ds-dark-theme] a:visited {
+  color: #c77dff;
+}
+
+/* Keyboard focus: a clear 2px ring in the neon primary, floated 2px off
+   the element so it stays legible against the frosted surfaces. Uses the
+   theme-token primary so it tracks the light/dark variant and never the
+   UA default outline. */
+body[data-dsh-cyberpunk] :focus-visible {
+  outline: 2px solid var(--dsw-alias-state-business-primary);
+  outline-offset: 2px;
+}
+
+body[data-dsh-cyberpunk][data-ds-dark-theme] :focus-visible {
+  outline-color: var(--dsw-alias-state-business-primary);
+}
+
+body[data-dsh-cyberpunk] [data-pane='sidebar'] {
+  color: var(--dsw-alias-label-primary);
+}
+
+body[data-dsh-cyberpunk] [role='tooltip'] {
+  background: var(--dsw-alias-tooltip-bg);
+  color: var(--dsw-alias-tooltip-fg);
+}
+
+body[data-dsh-cyberpunk] [role='dialog'] {
+  color: var(--dsw-alias-label-primary);
+}
+
+body[data-dsh-cyberpunk] [role='dialog'] [class*='navCell']:not([aria-current='true']) {
+  color: var(--dsw-alias-label-primary);
+}
+
+/* Text tabs are labels, not chrome plates. */
+body[data-dsh-cyberpunk] button[role='tab'],
+body[data-dsh-cyberpunk] button[role='tab']:hover,
+body[data-dsh-cyberpunk] button[role='tab']:active,
+body[data-dsh-cyberpunk] button[role='tab']:disabled,
+body[data-dsh-cyberpunk] button[role='tab']:hover:not(:disabled),
+body[data-dsh-cyberpunk] button[role='tab']:active:not(:disabled) {
+  background-image: none;
+  background-color: transparent;
+  box-shadow: none;
+  text-shadow: none;
+  border: 0;
+  color: var(--dsw-alias-label-primary);
+  transform: none;
+  filter: none;
+  opacity: 1;
+}
+
+/* --- aionui 右侧面板适配（dsh-aionui-panel）-------------------------------
+   The host right-hand panel system (Explorer 文件树 + SCM 变更 + Preview
+   预览) rides its own `--aion-*` token set, remapped here into the
+   cyberpunk neon palette so the panel floats on the panorama exactly
+   like the main interface: translucent frosted surfaces with a backdrop
+   blur. All token values share the skin's palette (blue-* /
+   neutral-bluish-* above). The panel's own overlays (dialog, context menu,
+   toast) are React-portaled to document.body, so applying backdrop-filter
+   on the columns cannot trap them — the skin's usual no-blur discipline
+   does not apply here and the frosted glass is safe. Divided into 1) token
+   remap, 2) columns & roots (frost + readability), 3) interactive
+   controls.
+
+   --- 1) token remap: light (day-neon translucent) -------------------- */
+
+body[data-dsh-cyberpunk] {
+  --aion-bg-base: rgba(255, 255, 255, 0.5);
+  --aion-bg-1: rgba(240, 252, 255, 0.45);
+  --aion-bg-2: rgba(228, 247, 255, 0.55);
+  --aion-bg-3: rgba(0, 200, 255, 0.22);
+  --aion-bg-4: rgba(0, 200, 255, 0.34);
+  --aion-bg-hover: rgba(0, 200, 255, 0.08);
+  --aion-bg-active: rgba(0, 200, 255, 0.14);
+  --aion-text-primary: #1a6d88;
+  --aion-text-secondary: #20839a;
+  --aion-text-tertiary: #2497b2;
+  --aion-text-disabled: #92aab8;
+  --aion-primary: #0098b8;
+  --aion-success: #00a86b;
+  --aion-warning: #e6b800;
+  --aion-danger: #e01a4f;
+  --aion-brand: #8aebff;
+  --aion-aou-1: #f0fdff;
+  --aion-aou-2: #e0faff;
+  --aion-aou-3: #8aebff;
+  --aion-aou-4: #33dcff;
+  --aion-aou-5: #00cfff;
+  --aion-aou-6: #0a5466;
+  --aion-fill-2: rgba(0, 200, 255, 0.07);
+  --aion-fill-3: rgba(0, 200, 255, 0.16);
+  --aion-border-base: rgba(0, 150, 210, 0.2);
+  --aion-overlay-shadow: 0 8px 24px rgba(6, 40, 56, 0.28);
+  --aion-font-sans: -apple-system, "system-ui", "Segoe UI", Roboto,
+    "Helvetica Neue", "PingFang SC", "Microsoft YaHei", sans-serif;
+  --aion-font-mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas,
+    "Liberation Mono", monospace;
+}
+
+/* --- 1) token remap: dark (deep ink frosted) --------------------------- */
+
+body[data-dsh-cyberpunk][data-ds-dark-theme] {
+  --aion-bg-base: rgba(7, 11, 22, 0.7);
+  --aion-bg-1: rgba(7, 11, 22, 0.5);
+  --aion-bg-2: rgba(9, 14, 28, 0.58);
+  --aion-bg-3: rgba(0, 229, 255, 0.2);
+  --aion-bg-4: rgba(0, 229, 255, 0.3);
+  --aion-bg-hover: rgba(0, 229, 255, 0.12);
+  --aion-bg-active: rgba(0, 229, 255, 0.2);
+  --aion-text-primary: #c8dae8;
+  --aion-text-secondary: #a8d8e8;
+  --aion-text-tertiary: #66a8c4;
+  --aion-text-disabled: #3a5678;
+  --aion-primary: #0ba3c0;
+  --aion-success: #00ff9c;
+  --aion-warning: #ffd600;
+  --aion-danger: #ff3860;
+  --aion-brand: #8aebff;
+  --aion-aou-1: #050d15;
+  --aion-aou-2: #081420;
+  --aion-aou-3: #102230;
+  --aion-aou-4: #223d55;
+  --aion-aou-5: #2c4c68;
+  --aion-aou-6: #7adff5;
+  --aion-fill-2: rgba(0, 229, 255, 0.12);
+  --aion-fill-3: rgba(0, 229, 255, 0.2);
+  --aion-border-base: rgba(0, 229, 255, 0.16);
+  --aion-overlay-shadow: 0 12px 32px rgba(0, 0, 0, 0.55);
+}
+
+/* --- 2) columns & roots: frosted glass over the panorama ---------------- */
+
+body[data-dsh-cyberpunk] [data-aionui-explorer-col],
+body[data-dsh-cyberpunk] [data-aionui-preview-col] {
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+}
+
+body[data-dsh-cyberpunk] :global(.aionui-root) {
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+}
+
+/* --- 3) interactive controls: portal'd frosted floaters + theme mask ----- */
+
+body[data-dsh-cyberpunk] :global(.aionui-dialog),
+body[data-dsh-cyberpunk] :global(.aionui-menu),
+body[data-dsh-cyberpunk] :global(.aionui-toast) {
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+}
+
+body[data-dsh-cyberpunk] :global(.aionui-overlay) {
+  background: rgba(6, 40, 56, 0.42);
+}
+
+body[data-dsh-cyberpunk][data-ds-dark-theme] :global(.aionui-overlay) {
+  background: rgba(0, 0, 0, 0.6);
+}
+
+/* --- 3) interactive polish ------------------------------------------------
+   Smooth the state changes the token remap already drives. All transitions
+   are short (130ms) and appearance-only (color / background / border / box-shadow /
+   opacity) so nothing reflows; the whole set folds to `transition: none` under
+   prefers-reduced-motion at the end of this section. Disabled controls get an
+   obvious dim and stop responding to hover. */
+
+body[data-dsh-cyberpunk] button,
+body[data-dsh-cyberpunk] a,
+body[data-dsh-cyberpunk] :global(.aionui-btn),
+body[data-dsh-cyberpunk] :global(.aionui-menu-item),
+body[data-dsh-cyberpunk] :global(.aionui-explorer-handle),
+body[data-dsh-cyberpunk] :global(.aionui-preview-handle) {
+  transition: background-color 0.13s ease, border-color 0.13s ease,
+    box-shadow 0.13s ease, color 0.13s ease, opacity 0.13s ease;
+}
+
+body[data-dsh-cyberpunk] ::-webkit-scrollbar-thumb {
+  transition: background-color 0.13s ease;
+}
+
+/* Links: breathe toward the deeper ink on hover, press flat on active. */
+body[data-dsh-cyberpunk] a:hover {
+  color: #0a5466;
+  text-decoration: underline;
+}
+
+body[data-dsh-cyberpunk] a:active {
+  color: #06323f;
+}
+
+body[data-dsh-cyberpunk][data-ds-dark-theme] a:hover {
+  color: #bdf3ff;
+}
+
+body[data-dsh-cyberpunk][data-ds-dark-theme] a:active {
+  color: #d6f9ff;
+}
+
+/* Disabled controls: visibly dimmed and inert to hover / focus. */
+body[data-dsh-cyberpunk] button:disabled,
+body[data-dsh-cyberpunk] :global(.aionui-btn:disabled),
+body[data-dsh-cyberpunk] :global(.aionui-menu-item-disabled) {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+body[data-dsh-cyberpunk] :global(.aionui-btn:disabled:hover),
+body[data-dsh-cyberpunk] :global(.aionui-menu-item-disabled):hover {
+  background-color: transparent;
+  box-shadow: none;
+}
+
+/* aionui panel: drag handles glow with the neon cyan on hover, and the
+   collapsed-expand affordance mirrors the hand. */
+body[data-dsh-cyberpunk] :global(.aionui-explorer-handle),
+body[data-dsh-cyberpunk] :global(.aionui-preview-handle) {
+  background: #cdecf7;
+}
+
+body[data-dsh-cyberpunk] :global(.aionui-explorer-handle):hover,
+body[data-dsh-cyberpunk] :global(.aionui-preview-handle):hover {
+  background: #54aecf;
+  box-shadow: 0 0 6px rgba(0, 200, 255, 0.5);
+}
+
+body[data-dsh-cyberpunk][data-ds-dark-theme] :global(.aionui-explorer-handle),
+body[data-dsh-cyberpunk][data-ds-dark-theme] :global(.aionui-preview-handle) {
+  background: #1e3a52;
+}
+
+body[data-dsh-cyberpunk][data-ds-dark-theme] :global(.aionui-explorer-handle):hover,
+body[data-dsh-cyberpunk][data-ds-dark-theme] :global(.aionui-preview-handle):hover {
+  background: #2fa3c8;
+  box-shadow: 0 0 6px rgba(0, 229, 255, 0.5);
+}
+
+body[data-dsh-cyberpunk] :global(.aionui-floating-expand):hover {
+  background: #e8f9ff;
+  border-color: #33dcff;
+}
+
+body[data-dsh-cyberpunk] :global(.aionui-floating-expand):active {
+  background: #e0faff;
+}
+
+body[data-dsh-cyberpunk][data-ds-dark-theme] :global(.aionui-floating-expand):hover {
+  background: #142030;
+  border-color: #33dcff;
+}
+
+body[data-dsh-cyberpunk][data-ds-dark-theme] :global(.aionui-floating-expand):active {
+  background: #182638;
+}
+
+body[data-dsh-cyberpunk] :global(.aionui-collapse-chevron):hover {
+  color: #2f8fb3;
+}
+
+body[data-dsh-cyberpunk][data-ds-dark-theme] :global(.aionui-collapse-chevron):hover {
+  color: #00e5ff;
+}
+
+/* aionui menu items: hover only on enabled rows (the token remap supplies
+   the resting fill; disabled rows keep their dim and no hover). */
+body[data-dsh-cyberpunk] :global(.aionui-menu-item:not(.aionui-menu-item-disabled):hover) {
+  background: rgba(0, 200, 255, 0.12);
+}
+
+body[data-dsh-cyberpunk][data-ds-dark-theme] :global(.aionui-menu-item:not(.aionui-menu-item-disabled):hover) {
+  background: rgba(0, 229, 255, 0.16);
+}
+
+/* --- reduced-motion: fold all transitions to instant --------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  body[data-dsh-cyberpunk] button,
+  body[data-dsh-cyberpunk] a,
+  body[data-dsh-cyberpunk] :global(.aionui-btn),
+  body[data-dsh-cyberpunk] :global(.aionui-menu-item),
+  body[data-dsh-cyberpunk] :global(.aionui-explorer-handle),
+  body[data-dsh-cyberpunk] :global(.aionui-preview-handle),
+  body[data-dsh-cyberpunk] ::-webkit-scrollbar-thumb {
+    transition: none;
+  }
+}
+
+/* --- git-graph 提交图适配（dsh-git-graph） -----------------------------------
+   The git graph dialog / branch popover / selector chip read the shell's
+   --dsw-alias-* remap, so their surfaces already float on the neon frosted
+   palette. These rules add the skin's own color voice to the commit
+   topology: each lane column gets a hue from the neon family (pass lines
+   stay muted; the current-branch badge keeps the brand fill), and the
+   dialog frame joins the panel's frosted-glass treatment. Hooks are the
+   presentation-neutral data-gitgraph-* attributes emitted by the
+   dsh-git-graph bundle — no hashed class names are involved. */
+
+/* Lane hue ramp: cyan / neon green / neon yellow / light cyan / electric
+   purple / magenta, repeating every six columns. Node and merge glyphs
+   share the column hue; pass and gap cells keep the muted lane color from
+   the plugin's tokens. */
+body[data-dsh-cyberpunk] [data-gitgraph-lanes] > [data-gitgraph-glyph='node']:nth-child(6n+1),
+body[data-dsh-cyberpunk] [data-gitgraph-lanes] > [data-gitgraph-glyph='merge']:nth-child(6n+1) { color: #00b8d4; }
+body[data-dsh-cyberpunk] [data-gitgraph-lanes] > [data-gitgraph-glyph='node']:nth-child(6n+2),
+body[data-dsh-cyberpunk] [data-gitgraph-lanes] > [data-gitgraph-glyph='merge']:nth-child(6n+2) { color: #00d98a; }
+body[data-dsh-cyberpunk] [data-gitgraph-lanes] > [data-gitgraph-glyph='node']:nth-child(6n+3),
+body[data-dsh-cyberpunk] [data-gitgraph-lanes] > [data-gitgraph-glyph='merge']:nth-child(6n+3) { color: #e6b800; }
+body[data-dsh-cyberpunk] [data-gitgraph-lanes] > [data-gitgraph-glyph='node']:nth-child(6n+4),
+body[data-dsh-cyberpunk] [data-gitgraph-lanes] > [data-gitgraph-glyph='merge']:nth-child(6n+4) { color: #33dcff; }
+body[data-dsh-cyberpunk] [data-gitgraph-lanes] > [data-gitgraph-glyph='node']:nth-child(6n+5),
+body[data-dsh-cyberpunk] [data-gitgraph-lanes] > [data-gitgraph-glyph='merge']:nth-child(6n+5) { color: #9d4edd; }
+body[data-dsh-cyberpunk] [data-gitgraph-lanes] > [data-gitgraph-glyph='node']:nth-child(6n),
+body[data-dsh-cyberpunk] [data-gitgraph-lanes] > [data-gitgraph-glyph='merge']:nth-child(6n) { color: #ff2d78; }
+
+/* Night variant: the same hue family, lifted for the deep night city. */
+body[data-dsh-cyberpunk][data-ds-dark-theme] [data-gitgraph-lanes] > [data-gitgraph-glyph='node']:nth-child(6n+1),
+body[data-dsh-cyberpunk][data-ds-dark-theme] [data-gitgraph-lanes] > [data-gitgraph-glyph='merge']:nth-child(6n+1) { color: #00e5ff; }
+body[data-dsh-cyberpunk][data-ds-dark-theme] [data-gitgraph-lanes] > [data-gitgraph-glyph='node']:nth-child(6n+2),
+body[data-dsh-cyberpunk][data-ds-dark-theme] [data-gitgraph-lanes] > [data-gitgraph-glyph='merge']:nth-child(6n+2) { color: #00ff9c; }
+body[data-dsh-cyberpunk][data-ds-dark-theme] [data-gitgraph-lanes] > [data-gitgraph-glyph='node']:nth-child(6n+3),
+body[data-dsh-cyberpunk][data-ds-dark-theme] [data-gitgraph-lanes] > [data-gitgraph-glyph='merge']:nth-child(6n+3) { color: #ffe94d; }
+body[data-dsh-cyberpunk][data-ds-dark-theme] [data-gitgraph-lanes] > [data-gitgraph-glyph='node']:nth-child(6n+4),
+body[data-dsh-cyberpunk][data-ds-dark-theme] [data-gitgraph-lanes] > [data-gitgraph-glyph='merge']:nth-child(6n+4) { color: #7adff5; }
+body[data-dsh-cyberpunk][data-ds-dark-theme] [data-gitgraph-lanes] > [data-gitgraph-glyph='node']:nth-child(6n+5),
+body[data-dsh-cyberpunk][data-ds-dark-theme] [data-gitgraph-lanes] > [data-gitgraph-glyph='merge']:nth-child(6n+5) { color: #c77dff; }
+body[data-dsh-cyberpunk][data-ds-dark-theme] [data-gitgraph-lanes] > [data-gitgraph-glyph='node']:nth-child(6n),
+body[data-dsh-cyberpunk][data-ds-dark-theme] [data-gitgraph-lanes] > [data-gitgraph-glyph='merge']:nth-child(6n) { color: #ff5c82; }
+
+/* Dialog frame: frosted glass over the panorama, like the panel columns. */
+body[data-dsh-cyberpunk] [data-gitgraph-dialog] {
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+  border-color: rgba(0, 229, 255, 0.4);
+}
+
+body[data-dsh-cyberpunk][data-ds-dark-theme] [data-gitgraph-dialog] {
+  border-color: rgba(0, 229, 255, 0.22);
+}
+
+/* Ref badges (non-current): translucent cyan chips; the current branch
+   keeps the brand fill from the token remap. */
+body[data-dsh-cyberpunk] [data-gitgraph-ref]:not([data-gitgraph-ref-current]) {
+  background: rgba(0, 200, 255, 0.12);
+  border: 1px solid rgba(0, 150, 210, 0.2);
+}
+
+body[data-dsh-cyberpunk][data-ds-dark-theme] [data-gitgraph-ref]:not([data-gitgraph-ref-current]) {
+  background: rgba(0, 229, 255, 0.14);
+  border-color: rgba(0, 229, 255, 0.2);
+}
+
+/* --- 输入区选择器适配：工作区 + Git 分支胶囊（dsh-git-graph） -------------
+   The composer selector row above the input card holds two pills: the
+   official workspace picker and the git-graph branch chip. Both draw from
+   --dsw-alias-button-tool-bar-fill / border-l2 / label-secondary, and the
+   skin's global remap paints them with a heavy 50%-alpha cyan fill
+   that reads as a washed-out cyan and loses its fill on hover. This section
+   re-scopes those tokens on the selector row (located structurally through
+   the git-graph chip hook data-gitgraph-chip) so both pills become crisp
+   frosted cyan chips: a hairline cyan fill, a clear cyan border, deep ink
+   labels, tinted hover/active, and an open-state tint. Row-scoped
+   values only reach the row's own descendants (the two chips); the rest of
+   the shell keeps the global remap. Light + dark. */
+
+body[data-dsh-cyberpunk] div:has(> div > [data-gitgraph-chip]) {
+  --dsw-alias-button-tool-bar-fill: rgba(0, 200, 255, 0.08);
+  --dsw-alias-border-l2: rgba(0, 150, 210, 0.38);
+  --dsw-alias-label-secondary: #20839a;
+  --dsw-alias-label-tertiary: #2497b2;
+  --dsw-alias-interactive-bg-hover: rgba(0, 200, 255, 0.14);
+  --dsw-alias-interactive-bg-active: rgba(0, 200, 255, 0.2);
+}
+
+body[data-dsh-cyberpunk][data-ds-dark-theme] div:has(> div > [data-gitgraph-chip]) {
+  --dsw-alias-button-tool-bar-fill: rgba(0, 229, 255, 0.08);
+  --dsw-alias-border-l2: rgba(0, 229, 255, 0.38);
+  --dsw-alias-label-secondary: #d6f9ff;
+  --dsw-alias-label-tertiary: #a8d8e8;
+  --dsw-alias-interactive-bg-hover: rgba(0, 229, 255, 0.14);
+  --dsw-alias-interactive-bg-active: rgba(0, 229, 255, 0.22);
+}
+
+/* Open state: both chips keep a soft cyan tint under the brand border
+   (the workspace chip toggles aria-expanded, the branch chip too). */
+body[data-dsh-cyberpunk] div:has(> div > [data-gitgraph-chip]) > button[aria-expanded='true'],
+body[data-dsh-cyberpunk] [data-gitgraph-chip][aria-expanded='true'] {
+  background-color: rgba(0, 200, 255, 0.16);
+}
+
+body[data-dsh-cyberpunk][data-ds-dark-theme] div:has(> div > [data-gitgraph-chip]) > button[aria-expanded='true'],
+body[data-dsh-cyberpunk][data-ds-dark-theme] [data-gitgraph-chip][aria-expanded='true'] {
+  background-color: rgba(0, 229, 255, 0.18);
+}
+
+
+/* --- 输入框停靠区磨砂渐隐（composerSeat） ----------------------------------
+   The official composer seat fades the scrolled transcript out under a
+   36px band that ends in var(--dsw-alias-bg-base). This skin keeps
+   --dsw-alias-bg-base translucent so the panorama shows through the
+   panes; the same token leaks into the seat's fade band, leaving its solid
+   region see-through and letting scrolled messages bleed under the input
+   card. Painting the seat with an opaque plate instead reads as a flat
+   mask over the input row, so the seat keeps its fade band — ending in the
+   same translucent page veil, which makes the band invisible at rest — and
+   hides the scrolled text with a local frost. The frost (the veil gradient
+   plus backdrop-filter) sits on the seat's own ::before, never on the seat
+   element itself: a filter on the seat would become the containing block
+   for the fixed-position descendants rendered inside it (the git-graph
+   popover backdrop and graph dialog), re-anchoring them to the seat box.
+   One token-driven rule covers light and dark. */
+
+body[data-dsh-cyberpunk] [data-phase='active'] [class*='composerSeat'] {
+  background: transparent !important;
+}
+
+body[data-dsh-cyberpunk] [data-phase='active'] [class*='composerSeat']::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    transparent 0px,
+    var(--dsw-alias-bg-base) 36px
+  );
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}

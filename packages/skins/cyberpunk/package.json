@@ -1,0 +1,48 @@
+{
+  "name": "@linxin666/dsh-client-ui-skin-cyberpunk",
+  "description": "Hot-pluggable 赛博霓虹 (cyberpunk) skin for the dsh web GUI: neon night-city ambience — CSS-generated perspective grid and cyan/magenta glow over deep ink, cyan/magenta/yellow palette remapped onto the full dsh token set, translucent panes",
+  "version": "0.1.18",
+  "type": "module",
+  "main": "lib/index.js",
+  "exports": {
+    ".": "./lib/index.js",
+    "./client": "./lib/client.js",
+    "./src/*": "./src/*",
+    "./package.json": "./package.json"
+  },
+  "dsh": {
+    "client": {
+      "inject": [],
+      "platform": "web"
+    }
+  },
+  "scripts": {
+    "build": "tsdown",
+    "prepare": "tsdown",
+    "watch": "tsdown --watch",
+    "test": "vitest run"
+  },
+  "license": "BSD-3-Clause",
+  "peerDependencies": {},
+  "devDependencies": {
+    "jsdom": "29.1.1",
+    "lightningcss": "^1.32.0",
+    "tsdown": "^0.22.2",
+    "vite-tsconfig-paths": "^6.1.1",
+    "vitest": "^4.1.8",
+    "@deepseek-ai/cordis": "^4.0.1"
+  },
+  "files": [
+    "lib",
+    "skin.json",
+    "preview",
+    "README.md",
+    "README.zh.md",
+    "README.i18n.yaml",
+    "LICENSE"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zhu1090093659/dsh-web-ui.git"
+  }
+}

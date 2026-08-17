@@ -38,6 +38,7 @@
 | packages/skins/miku | @linxin666/dsh-client-ui-skin-miku | 0.1.12 | true |
 | packages/skins/matrix | @linxin666/dsh-client-ui-skin-matrix | 0.1.0 | true |
 | packages/skins/maid-atelier | @linxin666/dsh-client-ui-skin-maid-atelier | 0.1.20 | false |
+| packages/skins/cyberpunk | @linxin666/dsh-client-ui-skin-cyberpunk | 0.1.18 | true |
 
 
 ## 二、发布前检查结论（2026-08-11，已修复项标注 [已确认]）
